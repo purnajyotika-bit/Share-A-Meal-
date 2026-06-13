@@ -1,0 +1,92 @@
+{
+  "name": "DonationMessage",
+  "type": "object",
+  "properties": {
+    "donation_id": {
+      "type": "string",
+      "description": "ID of the donation this message belongs to"
+    },
+    "sender_email": {
+      "type": "string",
+      "description": "Email of the sender"
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "Display name of the sender"
+    },
+    "sender_role": {
+      "type": "string",
+      "enum": [
+        "donor",
+        "receiver",
+        "volunteer"
+      ],
+      "description": "Role of the sender in this donation"
+    },
+    "text": {
+      "type": "string",
+      "description": "Message content"
+    }
+  },
+  "required": [
+    "donation_id",
+    "sender_email",
+    "sender_name",
+    "text"
+  ],
+  "rls": {
+    "create": {
+      "data.sender_email": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.sender_email": "{{user.email}}"
+        },
+        {
+          "data.donation_id": {
+            "$in": {
+              "from": "Donation",
+              "where": {
+                "$or": [
+                  {
+                    "created_by": "{{user.email}}"
+                  },
+                  {
+                    "data.claimed_by": "{{user.email}}"
+                  },
+                  {
+                    "data.volunteer_email": "{{user.email}}"
+                  }
+                ]
+              },
+              "select": "id"
+            }
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.sender_email": "{{user.email}}"
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
