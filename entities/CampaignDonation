@@ -1,0 +1,30 @@
+{
+  "name": "CampaignDonation",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "donor_email": {
+      "type": "string"
+    },
+    "donor_name": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "message": {
+      "type": "string"
+    },
+    "anonymous": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "campaign_id",
+    "donor_email",
+    "amount"
+  ]
+}
