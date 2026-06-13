@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from './lib/AuthContext';
 import { LanguageProvider } from './lib/LanguageContext';
-import UserNotRegisteredError from './components/UserNotRegisteredError';
+import UserNotRegisteredError from './components/ui/UserNotRegisteredError';
 import ProtectedRoute from './components/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 import Home from './pages/Home';
